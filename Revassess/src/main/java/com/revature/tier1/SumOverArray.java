@@ -7,6 +7,7 @@ public class SumOverArray {
 		if (arr == null) {
 			return 0;
 		}
+		
 		int result = 0;
 		for (int i: arr) {
 			result += i;

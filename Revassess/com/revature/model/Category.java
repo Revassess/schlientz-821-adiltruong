@@ -1,5 +1,4 @@
 package com.revature.model;
 
-public class Flashcard {
-
+public enum Category {
 }

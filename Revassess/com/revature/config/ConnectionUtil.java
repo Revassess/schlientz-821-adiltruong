@@ -1,7 +1,9 @@
 package com.revature.config;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 /**
  * 
@@ -32,12 +34,12 @@ public class ConnectionUtil {
 		try {
 			if (cu == null) {
 				Class.forName("oracle.jdbc.driver.OracleDriver");
-				cu = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-				return cu;
+				cu = (ConnectionUtil) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+				return (Connection) cu;
 			}
 			
 			else {
-				return cu;
+				return (Connection) cu;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,9 +51,9 @@ public class ConnectionUtil {
 	//implement this method with a callable statement that calls the absolute value sql function
 	public long callAbsoluteValueFunction(long value){
 		String sql = "CALL ABS(?)";
-		CallableStatement cs = conn.prepareCall(sql);
+		CallableStatement cs = cu.prepareCall(sql);
 		cs.setString(1, Long.toString(value));
-		ResultSet rs = cs.execute();
+		ResultSet rs = cs.executeQuery();
 
 		if (rs.next) {
 			return rs.getInt("0");
